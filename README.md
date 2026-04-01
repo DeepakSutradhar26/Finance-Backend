@@ -5,13 +5,17 @@ This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-
 First, run the development server:
 
 ```bash
+git clone https://github.com/DeepakSutradhar26/Finance-Backend.git
+
+cd finance-dashboard
+
+npm install
+
+npx prisma migrate dev --name init
+
+npx prisma generate
+
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.

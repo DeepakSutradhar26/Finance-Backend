@@ -1,0 +1,38 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+enum Role {
+    Viewer
+    Analyst
+    Admin
+}
+
+enum Type {
+    Income
+    Expense
+}
+
+model User {
+    id        String   @id   @default(cuid())  
+    role      Role
+    records   Record[]
+}
+
+// Used one-to-many relationship
+model Record {
+    id        String   @id   @default(cuid())
+    amount    Int            @default(0)
+    type      Type
+    category  String
+    date      DateTime       @default(now())
+    updatedAt DateTime       @updatedAt
+    deletedAt DateTime?
+
+    userId    String
+    user      User           @relation(fields: [userId], references: [id])
+}

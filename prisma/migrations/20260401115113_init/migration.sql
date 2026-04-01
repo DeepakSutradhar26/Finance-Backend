@@ -1,0 +1,30 @@
+-- CreateEnum
+CREATE TYPE "Role" AS ENUM ('Viewer', 'Analyst', 'Admin');
+
+-- CreateEnum
+CREATE TYPE "Type" AS ENUM ('Income', 'Expense');
+
+-- CreateTable
+CREATE TABLE "User" (
+    "id" TEXT NOT NULL,
+    "role" "Role" NOT NULL,
+
+    CONSTRAINT "User_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "Record" (
+    "id" TEXT NOT NULL,
+    "amount" INTEGER NOT NULL DEFAULT 0,
+    "type" "Type" NOT NULL,
+    "category" TEXT NOT NULL,
+    "date" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" TIMESTAMP(3) NOT NULL,
+    "deletedAt" TIMESTAMP(3),
+    "userId" TEXT NOT NULL,
+
+    CONSTRAINT "Record_pkey" PRIMARY KEY ("id")
+);
+
+-- AddForeignKey
+ALTER TABLE "Record" ADD CONSTRAINT "Record_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
