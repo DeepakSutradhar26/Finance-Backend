@@ -20,6 +20,8 @@ enum Type {
 model User {
     id        String   @id   @default(cuid())  
     role      Role
+    email     String   @unique
+    password  String
     records   Record[]
 }
 
