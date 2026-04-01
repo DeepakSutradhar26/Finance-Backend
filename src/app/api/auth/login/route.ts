@@ -49,8 +49,12 @@ export const POST = errorHandler(async (req : Request) => {
 
     const {password : _, ...userWithoutPassword} = user;
 
-    return NextResponse.json(
+    const response =  NextResponse.json(
         {token, user : userWithoutPassword},
         {status : 200}
     );
+
+    response.cookies.set("token", token);
+
+    return response;
 });
