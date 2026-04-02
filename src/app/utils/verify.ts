@@ -2,7 +2,7 @@ import { cookies } from "next/headers";
 import jwt from "jsonwebtoken";
 
 interface UserPayload{
-    userId : string,
+    id : string,
     role : "Viewer" | "Analyst" | "Admin"
 }
 

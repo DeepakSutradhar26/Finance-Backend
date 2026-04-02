@@ -4,10 +4,10 @@ import { userDeleteSchema, userPutSchema, userSchema } from "@/app/lib/validatio
 import { errorHandler } from "@/app/utils/errorHandler";
 import bcrypt from "bcryptjs";
 import { NextResponse } from "next/server";
-import { verifyUser } from "@/app/utils/verify";
 
+// Admins accesspoint only. Viewer and Analyst cannot access this endpoint 
+// Get all users logic
 export const GET = errorHandler(async() => {
-    await verifyUser();
     await verifyRole();
 
     const users = await prisma.user.findMany({
@@ -25,6 +25,7 @@ export const GET = errorHandler(async() => {
     );
 });
 
+// Create user logic
 export const POST = errorHandler(async (req : Request) => {
     await verifyRole();
 
@@ -56,6 +57,7 @@ export const POST = errorHandler(async (req : Request) => {
     );
 });
 
+// Update only role of non admin user
 export const PUT = errorHandler(async (req : Request) => {
     await verifyRole();
 
@@ -68,6 +70,23 @@ export const PUT = errorHandler(async (req : Request) => {
     }
 
     const {email, role} = body;  
+
+    const userUpdate = await prisma.user.findUnique({
+        where : {
+            email : email,
+        }
+    });
+
+    if(!userUpdate){
+        throw new Error("User not found");
+    }
+
+    if(userUpdate.role == "Admin"){
+        return NextResponse.json(
+            {message : "Admins cannot update role of admin"},
+            {status : 403},
+        );
+    }
 
     const user = await prisma.user.update({
         where : {email : email},
@@ -84,6 +103,7 @@ export const PUT = errorHandler(async (req : Request) => {
     );
 });
 
+// Delete users which are not admins
 export const DELETE = errorHandler(async (req : Request) => {
     await verifyRole();
 

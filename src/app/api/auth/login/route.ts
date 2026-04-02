@@ -5,6 +5,7 @@ import jwt from "jsonwebtoken";
 import { authSchema } from "@/app/lib/validations/auth";
 import { errorHandler } from "@/app/utils/errorHandler";
 
+// Login user and save token inside cookies
 export const POST = errorHandler(async (req : Request) => {
     const body = await req.json();
 
@@ -42,7 +43,7 @@ export const POST = errorHandler(async (req : Request) => {
     }
 
     const token = jwt.sign(
-        {userId : user.id, role : user.role},
+        {id : user.id, role : user.role},
         process.env.JWT_SECRET!,
         {expiresIn : '1d'}
     );

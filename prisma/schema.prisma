@@ -26,6 +26,7 @@ model User {
 }
 
 // Used one-to-many relationship
+// Here date I massuming meant due date and should be taken as input
 model Record {
     id        String   @id   @default(cuid())
     amount    Int            @default(0)

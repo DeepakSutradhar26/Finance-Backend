@@ -10,4 +10,6 @@ export async function verifyRole(){
     if(user.role != "Admin"){
         throw new Error("Forbidden access");
     }
+
+    return user;
 }

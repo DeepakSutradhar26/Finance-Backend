@@ -1,9 +1,11 @@
 import { NextResponse } from "next/server";
 
-export function errorHandler(handler : Function){
-    return async (req : Request) => {
+type Handler = (...args : any[]) => Promise<Response>;
+
+export function errorHandler(handler : Handler){
+    return async (...args : any[]) => {
         try{
-            return await handler(req);
+            return await handler(...args);
         }catch(err:any){
             if(err.message == "Validation Failed"){
                 return NextResponse.json(

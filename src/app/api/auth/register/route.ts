@@ -4,6 +4,7 @@ import { errorHandler } from "@/app/utils/errorHandler";
 import bcrypt from "bcryptjs";
 import { NextResponse } from "next/server";
 
+// Register user with saving token inside cookie
 export const POST = errorHandler(async (req : Request) => {
     const body = await req.json();
 
@@ -31,13 +32,13 @@ export const POST = errorHandler(async (req : Request) => {
         );
     }
 
-    const hashed_password = await bcrypt.hash(password, 10);
+    const hashedPassword = await bcrypt.hash(password, 10);
 
     const user = await prisma.user.create({
         data : {
             role : "Viewer",
             email : email,
-            password : hashed_password,
+            password : hashedPassword,
         }
     });
 
