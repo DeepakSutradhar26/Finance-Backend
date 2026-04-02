@@ -1,4 +1,4 @@
-import { verifyUser } from "../verify";
+import { verifyUser } from "../../utils/verify";
 
 export async function verifyRole(){
     const user = await verifyUser();

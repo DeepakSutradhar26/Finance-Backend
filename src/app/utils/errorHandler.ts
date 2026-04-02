@@ -5,6 +5,13 @@ export function errorHandler(handler : Function){
         try{
             return await handler(req);
         }catch(err:any){
+            if(err.message == "Validation Failed"){
+                return NextResponse.json(
+                    {message : "Validation Failed", error : err.message},
+                    {status : 400},
+                );
+            }
+
             if(err.message == "Unauthorized access"){
                 return NextResponse.json(
                     {message : err.message},
@@ -16,6 +23,13 @@ export function errorHandler(handler : Function){
                 return NextResponse.json(
                     {message : err.message},
                     {status : 403},
+                );
+            }
+
+            if(err.code == "P2025" || err.message == "User Not Found"){
+                return NextResponse.json(
+                    {message : "User Not Found"},
+                    {status : 404},
                 );
             }
 

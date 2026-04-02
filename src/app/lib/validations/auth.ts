@@ -18,3 +18,12 @@ export const userSchema = z.object({
     password : passwordSchema,
     role : roleSchema,
 });
+
+export const userPutSchema = z.object({
+    email : emailSchema,
+    role : roleSchema,
+});
+
+export const userDeleteSchema = z.object({
+    email : emailSchema,
+});

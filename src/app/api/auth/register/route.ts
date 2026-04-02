@@ -1,4 +1,4 @@
-import { prisma } from "@/app/lib/prisma";
+import { prisma } from "@/app/utils/prisma";
 import { authSchema } from "@/app/lib/validations/auth";
 import { errorHandler } from "@/app/utils/errorHandler";
 import bcrypt from "bcryptjs";
