@@ -5,6 +5,20 @@ export function errorHandler(handler : Function){
         try{
             return await handler(req);
         }catch(err:any){
+            if(err.message == "Unauthorized access"){
+                return NextResponse.json(
+                    {message : err.message},
+                    {status : 401},
+                );
+            }
+
+            if(err.message == "Forbidden access"){
+                return NextResponse.json(
+                    {message : err.message},
+                    {status : 403},
+                );
+            }
+
             return NextResponse.json(
                 {message : "Internal Server Error", error : err.message},
                 {status : 500},
