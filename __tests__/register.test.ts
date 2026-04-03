@@ -7,10 +7,6 @@ const registerEndpoint = "http://localhost/app/api/auth/register/route";
 describe("POST /api/auth/register", () => {
     beforeEach(async ()=>{
         await prisma.user.deleteMany();
-        const count = prisma.user.count();
-
-        console.log("Count:", count);
-        console.log("Current Databse:", process.env.DATABASE_URL);
     });
 
     afterAll(async ()=> {
@@ -35,8 +31,6 @@ describe("POST /api/auth/register", () => {
             password : "456789673"
         }));
         const body = await res.json();
-
-        console.log(res);
 
         expect(res.status).toBe(201);
         expect(body.email).toBe("ghghgh@gmail.com");

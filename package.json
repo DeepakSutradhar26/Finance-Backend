@@ -8,8 +8,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "test": "dotenv -e .env.test -- jest",
-    "test:watch" : "dotenv -e .env.test -- jest"
+    "test": "dotenv -e .env.test -- jest --runInBand --detectOpenHandles",
+    "test:watch" : "dotenv -e .env.test -- jest --runInBand"
   },
   "dependencies": {
     "@prisma/adapter-pg": "^7.6.0",
