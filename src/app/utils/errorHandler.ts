@@ -28,9 +28,9 @@ export function errorHandler(handler : Handler){
                 );
             }
 
-            if(err.code == "P2025" || err.message == "User Not Found"){
+            if(err.message == "User not found"){
                 return NextResponse.json(
-                    {message : "User Not Found"},
+                    {message : "User not found"},
                     {status : 404},
                 );
             }
