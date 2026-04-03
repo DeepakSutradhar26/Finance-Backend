@@ -48,6 +48,6 @@ export const POST = errorHandler(async (req : Request) => {
 
     return NextResponse.json(
         {record},
-        {status : 200},
+        {status : 201},
     );
 });

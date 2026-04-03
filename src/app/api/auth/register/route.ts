@@ -11,10 +11,7 @@ export const POST = errorHandler(async (req : Request) => {
     const result = authSchema.safeParse(body);
 
     if(!result.success){
-        return NextResponse.json(
-            {message : "Validation Failed", errors : result.error.format()},
-            {status : 400}
-        );
+        throw new Error("Validation Failed");
     }
 
     const {email, password} = result.data;
@@ -45,7 +42,7 @@ export const POST = errorHandler(async (req : Request) => {
     const {password : _, ...userWithoutPassword} = user;
 
     return NextResponse.json(
-        {userWithoutPassword},
+        userWithoutPassword,
         {status : 201},
     );
 });

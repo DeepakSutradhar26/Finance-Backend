@@ -53,7 +53,7 @@ export const POST = errorHandler(async (req : Request) => {
 
     return NextResponse.json(
         {user : userWithoutPassword},
-        {status : 200},
+        {status : 201},
     );
 });
 

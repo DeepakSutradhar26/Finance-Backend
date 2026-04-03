@@ -48,6 +48,7 @@ export const POST = errorHandler(async (req : Request) => {
         {expiresIn : '1d'}
     );
 
+    // Response with user without password
     const {password : _, ...userWithoutPassword} = user;
 
     const response =  NextResponse.json(
