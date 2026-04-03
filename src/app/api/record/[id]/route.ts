@@ -1,15 +1,15 @@
 import { verifyRole } from "@/app/lib/guards/user";
-import { recordSchema } from "@/app/lib/validations/record";
+import { recordPatchSchema} from "@/app/lib/validations/record";
 import { errorHandler } from "@/app/utils/errorHandler";
 import { prisma } from "@/app/utils/prisma";
 import { NextResponse } from "next/server";
 
 export const PATCH = errorHandler(async (req : Request, {params} : {params: {id : string}}) => {
-    const user = await verifyRole();
+    const user = await verifyRole(req);
 
     const body = await req.json();
 
-    const result = recordSchema.safeParse(body);
+    const result = recordPatchSchema.safeParse(body);
 
     if(!result.success){
         throw new Error("Validation Failed");
@@ -27,7 +27,7 @@ export const PATCH = errorHandler(async (req : Request, {params} : {params: {id 
 
     if(!record){
         return NextResponse.json(
-            {message : "Record does not exist"},
+            {message : "Record not found"},
             {status : 404},
         );
     }
@@ -49,13 +49,13 @@ export const PATCH = errorHandler(async (req : Request, {params} : {params: {id 
     });
 
     return NextResponse.json(
-        {recordUpdate},
+        recordUpdate,
         {status : 200},
     );
 });
 
 export const DELETE = errorHandler(async (req : Request, {params} : {params : {id : string}}) => {
-    const user = await verifyRole();
+    const user = await verifyRole(req);
 
     const {id} = await params;
 

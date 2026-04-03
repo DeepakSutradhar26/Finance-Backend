@@ -5,7 +5,7 @@ import { prisma } from "@/app/utils/prisma";
 import { NextResponse } from "next/server";
 
 export const GET = errorHandler(async (req : Request) => {
-    await verifyRole();
+    await verifyRole(req);
 
     const records = await prisma.record.findMany({
         select : {
@@ -24,7 +24,7 @@ export const GET = errorHandler(async (req : Request) => {
 });
 
 export const POST = errorHandler(async (req : Request) => {
-    const user = await verifyRole(); 
+    const user = await verifyRole(req); 
 
     const body = await req.json();
 

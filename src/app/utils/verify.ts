@@ -6,11 +6,21 @@ interface UserPayload{
     role : "Viewer" | "Analyst" | "Admin"
 }
 
-export async function verifyUser() : Promise<UserPayload | null>{
+export async function verifyUser(req? : Request) : Promise<UserPayload | null>{
     try{
-        const cookieUser = await cookies();
+        let token : string | undefined;
 
-        const token = cookieUser.get("token")?.value;
+        //Get token from headers in Authorization for tests
+        if(req){
+            token = req.headers.get("Authorization")?.split(" ")[1];
+        }
+
+        //Get token from cookies if present in cookies
+        if(!token){
+            const cookieUser = await cookies();
+            token = cookieUser.get("token")?.value;
+        }
+
         if(!token) return null;
 
         const decoder = jwt.verify(token, process.env.JWT_SECRET!) as UserPayload;

@@ -1,7 +1,7 @@
 import { verifyUser } from "../../utils/verify";
 
-export async function verifyRole(){
-    const user = await verifyUser();
+export async function verifyRole(req? : Request){
+    const user = await verifyUser(req);
     
     if(!user){
         throw new Error("Unauthorized access");

@@ -17,6 +17,7 @@ describe("POST /app/api/auth/login", () => {
     });
 
     afterAll(async ()=> {
+        await prisma.user.deleteMany();
         await prisma.$disconnect();
     });
 
