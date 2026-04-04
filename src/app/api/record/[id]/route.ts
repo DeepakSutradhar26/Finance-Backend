@@ -15,7 +15,7 @@ export const PATCH = errorHandler(async (req : Request, {params} : {params: {id 
         throw new Error("Validation Failed");
     }
 
-    const {amount, type, category, date} = result.data; 
+    const {amount, type, category, description} = result.data; 
 
     const {id} = await params;
 
@@ -44,7 +44,7 @@ export const PATCH = errorHandler(async (req : Request, {params} : {params: {id 
             amount,
             type,
             category,
-            date,
+            description,
         }
     });
 

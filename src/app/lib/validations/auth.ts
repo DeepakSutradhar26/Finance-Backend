@@ -9,14 +9,18 @@ export const emailSchema = z.string()
 export const roleSchema = z.enum(["Viewer", "Analyst", "Admin"]);
 
 export const authSchema = z.object({
+    name : z.string().default("Newbie"),
     email : emailSchema,
     password : passwordSchema,
+    isActive : z.boolean().default(false),
 });
 
 export const userSchema = z.object({
+    name : z.string().default("Newbie"),
     email : emailSchema,
     password : passwordSchema,
     role : roleSchema,
+    isActive : z.boolean().default(false),
 });
 
 export const userPutSchema = z.object({

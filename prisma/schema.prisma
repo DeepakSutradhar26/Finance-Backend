@@ -19,22 +19,25 @@ enum Type {
 
 model User {
     id        String   @id   @default(cuid())  
-    role      Role
+    name      String   @default("Newbie")
     email     String   @unique
     password  String
+    role      Role
+    isActive  Boolean  @default(false)
     records   Record[]
 }
 
 // Used one-to-many relationship
 // Here date I massuming meant due date and should be taken as input
 model Record {
-    id        String   @id   @default(cuid())
-    amount    Int            @default(0)
-    type      Type
-    category  String
-    date      DateTime       @default(now())
-    updatedAt DateTime       @updatedAt
-    deletedAt DateTime?
+    id           String   @id   @default(cuid())
+    amount       Int            @default(0)
+    type         Type
+    category     String
+    description  String         @default("No description")
+    createdAt    DateTime       @default(now())
+    updatedAt    DateTime       @updatedAt
+    deletedAt    DateTime?
 
     userId    String
     user      User           @relation(fields: [userId], references: [id])

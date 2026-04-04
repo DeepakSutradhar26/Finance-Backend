@@ -13,7 +13,8 @@ export const GET = errorHandler(async (req : Request) => {
             amount : true,
             type : true,
             category : true,
-            date : true,
+            description : true,
+            createdAt : true,
         }
     });
 
@@ -34,14 +35,15 @@ export const POST = errorHandler(async (req : Request) => {
         throw new Error("Validation Failed");
     }
 
-    const {amount, type, category, date} = result.data;
+    const {amount, type, category, description} = result.data;
 
     const record = await prisma.record.create({
         data : {
             amount,
             type,
             category,
-            date,
+            createdAt : new Date(Date.now()),
+            description,
             userId : user.id
         }
     });

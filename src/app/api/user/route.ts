@@ -36,15 +36,17 @@ export const POST = errorHandler(async (req : Request) => {
         throw new Error("Validation Failed");
     }
 
-    const {email, password, role} = body;
+    const {name, email, password, role} = body;
 
     const hashedPassword = await bcrypt.hash(password, 10);
 
     const user = await prisma.user.create({
         data : {
+            name,
             email,
             password : hashedPassword,
             role,
+            isActive : false,
         }
     });
 

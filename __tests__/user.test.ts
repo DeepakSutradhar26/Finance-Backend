@@ -20,9 +20,11 @@ describe("GET /app/api/user", () => {
     it("Get all users", async() => {
         await prisma.user.create({
             data : {
+                name : "Alik",
                 email : "vbvmxbvm@gmail.com",
                 password : await bcrypt.hash("djfnenfef", 10),
                 role : "Viewer",
+                isActive : false,
             }
         });
         const res = await GET(makeRequest(endpointUser, "POST", undefined, getToken()));

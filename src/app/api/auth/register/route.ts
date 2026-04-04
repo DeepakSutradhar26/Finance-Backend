@@ -33,9 +33,11 @@ export const POST = errorHandler(async (req : Request) => {
 
     const user = await prisma.user.create({
         data : {
+            name : "Badshah",
             role : "Viewer",
             email : email,
             password : hashedPassword,
+            isActive : false,
         }
     });
 

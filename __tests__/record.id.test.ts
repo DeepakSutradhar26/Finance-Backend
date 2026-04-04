@@ -27,7 +27,8 @@ describe("PATCH /app/api/record/[id]", () => {
                 amount : 599,
                 type : "Income",
                 category : "Stock",
-                date : new Date("2026-04-11"),
+                createdAt : new Date(Date.now()),
+                description : "For the client",
                 userId : user?.id as string,
             }
         });
@@ -58,9 +59,11 @@ describe("PATCH /app/api/record/[id]", () => {
     it("Admin cannot update another admin records", async() => {
         await prisma.user.create({
             data : {
+                name : "Newbie",
                 email : "fjjgjf@gmial.com",
                 password : await bcrypt.hash("funbusnfinf", 10),
                 role : "Admin",
+                isActive : false,
             }
         });
 
@@ -119,7 +122,8 @@ describe("DELETE /app/api/record/[id]", () => {
                 amount : 599,
                 type : "Income",
                 category : "Stock",
-                date : new Date("2026-04-11"),
+                createdAt : new Date("2026-04-11"),
+                description : "For the company",
                 userId : user?.id as string,
             }
         });
@@ -148,9 +152,11 @@ describe("DELETE /app/api/record/[id]", () => {
     it("Another cannot delete another admin records", async() => {
         await prisma.user.create({
             data : {
+                name : "Ali",
                 email : "fjjgjf@gmial.com",
                 password : await bcrypt.hash("funbusnfinf", 10),
                 role : "Admin",
+                isActive : false,
             }
         });
 

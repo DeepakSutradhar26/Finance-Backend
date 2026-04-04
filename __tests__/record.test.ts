@@ -30,7 +30,8 @@ describe("GET /api/record", () => {
                 amount : 500,
                 type : "Expense",
                 category : "Bank",
-                date : new Date("2026-04-05"),
+                createdAt : new Date("2026-04-05"),
+                description : "Urgent",
                 userId : user?.id as string,
             }
         });
@@ -39,7 +40,8 @@ describe("GET /api/record", () => {
                 amount : 70,
                 type : "Expense",
                 category : "Stock",
-                date : new Date("2026-04-05"),
+                createdAt : new Date("2026-04-05"),
+                description : "New",
                 userId : user?.id as string,
             }
         });
@@ -73,7 +75,7 @@ describe("POST /api/record", () => {
                 amount : "tggg",
                 type : "Income",
                 category : "Toys",
-                date : "2026-04-10",
+                createdAt : new Date(Date.now()),
             }, 
             getToken()));
         const body = await res.json();
@@ -88,7 +90,6 @@ describe("POST /api/record", () => {
                 amount : 600,
                 type : "Income",
                 category : "Toys",
-                date : "2026-04-10",
             }, 
             getToken()));
         const body = await res.json();

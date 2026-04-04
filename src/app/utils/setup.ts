@@ -14,9 +14,11 @@ export async function setupAdmin(){
     
     await prisma.user.create({
         data : {
+            name : "Abhisek",
             email : "abhishek88@gmail.com",
             password : await bcrypt.hash("45657593",10),
             role : "Admin",
+            isActive : false,
         }
     });
 

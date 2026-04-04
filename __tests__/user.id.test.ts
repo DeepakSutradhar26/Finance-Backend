@@ -35,9 +35,11 @@ describe("PATCH /app/api/user/[id]", () => {
     it("Admin cannot update another admin", async() => {
         const user = await prisma.user.create({
             data : {
+                name : "Salman",
                 email : "tony@gmail.com",
                 password : await bcrypt.hash("startman", 10),
                 role : "Admin",
+                isActive : false,
             }
         });
         const res = await PATCH(makeRequest(endpointUser + `/${user.id}`, "PATCH", 
@@ -57,9 +59,11 @@ describe("PATCH /app/api/user/[id]", () => {
     it("Admin updates user successfully", async() => {
         const user = await prisma.user.create({
             data : {
+                name : "Aryan",
                 email : "tony@gmail.com",
                 password : await bcrypt.hash("startman", 10),
                 role : "Viewer",
+                isActive : false,
             }
         });
         const res = await PATCH(makeRequest(endpointUser + `/${user.id}`, "PATCH", 
@@ -105,9 +109,11 @@ describe("DELETE /app/api/user/[id]", () => {
     it("Admin cannot delete another admin", async() => {
         const user = await prisma.user.create({
             data : {
+                name : "Tony",
                 email : "tony@gmail.com",
                 password : await bcrypt.hash("startman", 10),
                 role : "Admin",
+                isActive : false,
             }
         });
         const res = await DELETE(makeRequest(endpointUser + `/${user.id}`, "DELETE", 
@@ -124,9 +130,11 @@ describe("DELETE /app/api/user/[id]", () => {
     it("Admin deletes user successfully", async() => {
         const user = await prisma.user.create({
             data : {
+                name : "Tony2",
                 email : "tony@gmail.com",
                 password : await bcrypt.hash("startman", 10),
                 role : "Viewer",
+                isActive : false,
             }
         });
         const res = await DELETE(makeRequest(endpointUser + `/${user.id}`, "DELETE", 
