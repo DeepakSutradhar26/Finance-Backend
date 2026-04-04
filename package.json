@@ -12,10 +12,14 @@
     "test:watch": "dotenv -e .env.test -- jest --runInBand"
   },
   "dependencies": {
+    "@apollo/client": "^4.1.6",
+    "@apollo/server": "^5.5.0",
+    "@as-integrations/next": "^4.1.0",
     "@prisma/adapter-pg": "^7.6.0",
     "@prisma/client": "^7.6.0",
     "bcryptjs": "^3.0.3",
     "graphql": "^16.13.2",
+    "graphql-tag": "^2.12.6",
     "graphql-yoga": "^5.20.0",
     "jsonwebtoken": "^9.0.3",
     "next": "16.2.2",
