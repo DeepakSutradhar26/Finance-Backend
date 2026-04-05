@@ -30,7 +30,7 @@ export default function Register(){
     return(
     <div className="min-h-screen flex items-center justify-center bg-gray-900">
     <div className="bg-gray-800 p-8 rounded-lg w-full max-w-sm">
-        <h1 className="text-xl font-semibold mb-6 text-white">Register</h1>
+        <h1 className="text-xl font-semibold mb-6 text-white">Login</h1>
 
         <div className="mb-4">
         <label className="block text-sm text-gray-400 mb-1">Email</label>

@@ -8,8 +8,8 @@ export const recordSchema = gql`
 
     type Record {
         id : String!
-        amount : String!
-        type : Type
+        amount : Int!
+        type : Type!
         category : String!
         description : String!
         createdAt : String!

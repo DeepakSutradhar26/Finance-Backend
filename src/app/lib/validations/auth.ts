@@ -24,10 +24,7 @@ export const userSchema = z.object({
 });
 
 export const userPutSchema = z.object({
-    email : emailSchema,
-    role : roleSchema,
-});
-
-export const userDeleteSchema = z.object({
-    email : emailSchema,
+    name : z.string().optional(),
+    email : emailSchema.optional(),
+    role : roleSchema.optional(),
 });

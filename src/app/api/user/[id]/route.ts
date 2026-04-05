@@ -1,6 +1,6 @@
 import { verifyRole } from "@/app/lib/guards/user";
 import { prisma } from "@/app/utils/prisma";
-import { userDeleteSchema, userPutSchema} from "@/app/lib/validations/auth";
+import { userPutSchema} from "@/app/lib/validations/auth";
 import { errorHandler } from "@/app/utils/errorHandler";
 import { NextResponse } from "next/server";
 
@@ -18,7 +18,14 @@ export const PATCH = errorHandler(async (req : Request, {params} : {params : {id
 
     const {id} = await params;
 
-    const {email, role} = body;  
+    if(!id){
+        return NextResponse.json(
+            {message : "Params not given"},
+            {status : 400},
+        );
+    }
+
+    const {name, email, role} = body;  
 
     const userUpdate = await prisma.user.findUnique({
         where : {
@@ -37,8 +44,9 @@ export const PATCH = errorHandler(async (req : Request, {params} : {params : {id
     const user = await prisma.user.update({
         where : {id : id},
         data : {
-            email : email,
-            role : role,
+            ...(name && {name : name}),
+            ...(email && {email : email}),
+            ...(role && {role : role}),
         },
     });
 
