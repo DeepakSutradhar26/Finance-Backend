@@ -1,11 +1,16 @@
 import { GraphQLError } from "graphql";
 import { GraphQLContext } from "../context";
 
+interface UserArgs {
+    page? : number,
+    limit? : number,
+}
+
 export const userResolver = {
     Query : {
         users : async(
             _ : unknown,
-            __ : unknown,
+            args : UserArgs,
             ctx : GraphQLContext
         ) => {
             if(ctx.user?.role !== "Admin"){
@@ -14,7 +19,14 @@ export const userResolver = {
                 });
             }
 
-            return ctx.prisma.user.findMany({
+            const page = args.page ?? 1;
+            const limit = args.limit ?? 10;
+            const skip = (page - 1) * limit;
+
+            const [users, total] = await Promise.all([
+                ctx.prisma.user.findMany({
+                skip : skip,
+                take : limit,
                 select : {
                     id : true,
                     name : true,
@@ -35,43 +47,19 @@ export const userResolver = {
                         }
                     }
                 }
-            });
-        },
+            }),
+            ctx.prisma.user.count()
+        ]);
 
-        userById : async(
-            _ : unknown,
-            args : {id : string},
-            ctx : GraphQLContext,
-        ) => {
-            if(ctx.user?.role !== "Admin"){
-                throw new GraphQLError("Forbidden Access", {
-                    extensions : {code : "FORBIDDEN"}
-                });
+        return {
+            users : users,
+            meta : {
+                total : total,
+                page : args.page,
+                limit : args.limit,
+                totalPages : Math.ceil(total / limit) ?? 0
             }
-
-            return ctx.prisma.user.findUnique({
-                where : {id : args.id},
-                select : {
-                    id : true,
-                    name : true,
-                    email : true,
-                    role : true,
-                    isActive : true,
-                    records : {
-                        where : {deletedAt : null},
-                        select : {
-                            id : true,
-                            amount : true,
-                            type : true,
-                            category : true,
-                            description : true,
-                            createdAt : true,
-                            updatedAt : true,
-                            userId : true,
-                        }
-                    }
-                }
-            });
+        }
         }
     }
 }

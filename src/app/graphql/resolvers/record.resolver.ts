@@ -3,7 +3,7 @@ import { GraphQLContext } from "../context";
 
 interface RecordArgs {
     type? : "Income" | "Expense",
-    category : string,
+    category? : string,
     from? : string,
     to? : string,
     page? : number,
@@ -17,7 +17,6 @@ export const recordResolver = {
             args : RecordArgs,
             ctx : GraphQLContext
         )=>{
-            console.log("ctx.user:", ctx.user);
             if(!ctx.user || ctx.user.role === "Viewer"){
                 throw new GraphQLError("Forbidden access", {
                     extensions : {code : "FORBIDDEN"},

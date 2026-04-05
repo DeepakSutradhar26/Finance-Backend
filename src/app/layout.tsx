@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { Providors } from "./apolloProvider";
+import Navbar from "@/components/navbar";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -30,7 +31,10 @@ export default function RootLayout({
     >
       <body className="min-h-full flex flex-col">
         <Providors>
-          {children}
+          <Navbar/>
+          <main className="px-6 py-4">
+            {children}
+          </main>
         </Providors>
       </body>
     </html>

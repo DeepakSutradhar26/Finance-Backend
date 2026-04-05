@@ -17,8 +17,19 @@ export const userSchema = gql`
         records : [Record!]
     }
 
-    type Query {
+    type PageMeta {
+        total : Int!
+        page : Int!
+        limit : Int!
+        totalPages : Int!
+    }
+
+    type UserPage {
         users : [User!]
-        userById(id : String) : User
+        meta : PageMeta
+    }
+
+    type Query {
+        users(page : Int, limit : Int) : UserPage!
     }
 `;
