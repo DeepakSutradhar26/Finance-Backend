@@ -1,6 +1,9 @@
 import { NextResponse } from "next/server";
 import { RateLimiterMemory } from "rate-limiter-flexible";
 
+// This uses servers ram for counting no. of requests
+// For stateless architecture we can use Redis
+
 const limiter = new RateLimiterMemory({
     points : 10,
     duration : 60,
