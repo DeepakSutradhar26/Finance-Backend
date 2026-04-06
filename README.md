@@ -14,6 +14,10 @@ This project contains backend code for Finance Dashboard which supports financia
 - **Rate Limiting:** In-memory (Map-based middleware)
 - **Testing:** Jest
 
+## System Architecture
+
+![System Architecture](./img/Finance.drawio.png)
+
 ## Project Stucture
 ```
 ├── src/
@@ -83,14 +87,18 @@ JWT_SECRET="Your-Testing-Jwt-Secret"
 Authentication is done via JWT token stored in HTTP-only cookies. On login a signed token is assigned which contains user id and role. All routes use this token for authorization.
 
 ## Access Control
-```
+
 | Role    | Permissions                              |
 |---------|------------------------------------------|
 | Viewer  | View dashboard summary only              |
 | Analyst | View records and access GraphQL insights |
 | Admin   | Full access — manage users and records   |
-```
+
 Attempting to access a restricted route returns `403 Forbidden`.
+
+## API Documentation
+Full API documentation is available here:
+[View API Docs](https://documenter.getpostman.com/view/34898486/2sBXiqF9D9)
 
 ## Data Models
 

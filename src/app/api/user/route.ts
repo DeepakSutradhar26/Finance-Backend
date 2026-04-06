@@ -7,22 +7,22 @@ import { NextResponse } from "next/server";
 
 // Admins accesspoint only. Viewer and Analyst cannot access this endpoint 
 // Get all users logic
-export const GET = errorHandler(async(req : Request) => {
-    await verifyRole(req);
+// export const GET = errorHandler(async(req : Request) => {
+//     await verifyRole(req);
 
-    const users = await prisma.user.findMany({
-        select : {
-            id : true,
-            role : true,
-            email : true,
-        }
-    });
+//     const users = await prisma.user.findMany({
+//         select : {
+//             id : true,
+//             role : true,
+//             email : true,
+//         }
+//     });
 
-    return NextResponse.json(
-        {users},
-        {status : 200},
-    );
-});
+//     return NextResponse.json(
+//         {users},
+//         {status : 200},
+//     );
+// });
 
 // Create user logic
 export const POST = errorHandler(async (req : Request) => {

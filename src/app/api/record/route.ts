@@ -4,25 +4,25 @@ import { errorHandler } from "@/app/utils/errorHandler";
 import { prisma } from "@/app/utils/prisma";
 import { NextResponse } from "next/server";
 
-export const GET = errorHandler(async (req : Request) => {
-    await verifyRole(req);
+// export const GET = errorHandler(async (req : Request) => {
+//     await verifyRole(req);
 
-    const records = await prisma.record.findMany({
-        select : {
-            id : true,
-            amount : true,
-            type : true,
-            category : true,
-            description : true,
-            createdAt : true,
-        }
-    });
+//     const records = await prisma.record.findMany({
+//         select : {
+//             id : true,
+//             amount : true,
+//             type : true,
+//             category : true,
+//             description : true,
+//             createdAt : true,
+//         }
+//     });
 
-    return NextResponse.json(
-        {records},
-        {status : 200},
-    );
-});
+//     return NextResponse.json(
+//         {records},
+//         {status : 200},
+//     );
+// });
 
 export const POST = errorHandler(async (req : Request) => {
     const user = await verifyRole(req); 

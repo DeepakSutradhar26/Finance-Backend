@@ -1,4 +1,4 @@
-import {GET, POST} from "@/app/api/user/route";
+import {POST} from "@/app/api/user/route";
 import { prisma } from "@/app/utils/prisma"; 
 import { makeRequest } from "@/app/utils/request";
 import bcrypt from "bcryptjs";
@@ -6,34 +6,34 @@ import { setupAdmin, getToken } from "@/app/utils/setup";
 
 const endpointUser = "http://localhost/app/api/user/route";
 
-describe("GET /app/api/user", () => {
-    beforeEach(async() => {
-        await prisma.user.deleteMany();
+// describe("GET /app/api/user", () => {
+//     beforeEach(async() => {
+//         await prisma.user.deleteMany();
 
-        await setupAdmin();
-    });
+//         await setupAdmin();
+//     });
 
-    afterAll(async() => {
-        await prisma.$disconnect();
-    });
+//     afterAll(async() => {
+//         await prisma.$disconnect();
+//     });
 
-    it("Get all users", async() => {
-        await prisma.user.create({
-            data : {
-                name : "Alik",
-                email : "vbvmxbvm@gmail.com",
-                password : await bcrypt.hash("djfnenfef", 10),
-                role : "Viewer",
-                isActive : false,
-            }
-        });
-        const res = await GET(makeRequest(endpointUser, "POST", undefined, getToken()));
-        const body = await res.json();
+//     it("Get all users", async() => {
+//         await prisma.user.create({
+//             data : {
+//                 name : "Alik",
+//                 email : "vbvmxbvm@gmail.com",
+//                 password : await bcrypt.hash("djfnenfef", 10),
+//                 role : "Viewer",
+//                 isActive : false,
+//             }
+//         });
+//         const res = await GET(makeRequest(endpointUser, "POST", undefined, getToken()));
+//         const body = await res.json();
 
-        expect(res.status).toBe(200);
-        expect(body.users).toHaveLength(2);
-    });
-});
+//         expect(res.status).toBe(200);
+//         expect(body.users).toHaveLength(2);
+//     });
+// });
 
 describe("POST /app/api/user", () => {
     beforeEach(async() => {
