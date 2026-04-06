@@ -75,7 +75,7 @@ export const DELETE = errorHandler(async (req : Request, {params} : {params : {i
     }
 
     if(userDelete.role == "Admin"){
-        throw new Error("Forbidden access")
+        throw new Error("Forbidden access");
     }
 
     await prisma.user.delete({

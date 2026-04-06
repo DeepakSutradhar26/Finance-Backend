@@ -76,9 +76,12 @@ export const DELETE = errorHandler(async (req : Request, {params} : {params : {i
         throw new Error("Forbidden access");
     }
 
-    await prisma.record.delete({
+    await prisma.record.update({
         where : {
             id : id,
+        },
+        data : {
+            deletedAt : new Date(Date.now())
         }
     });
 
