@@ -1,6 +1,13 @@
 # Finance-Backend
 This project contains backend code for Finance Dashboard which supports financial records mangement, user mangement and financial-analatics overview. Built with Next.js APIs and GraphQL and contains paginated and filtered view.
 
+## Vercel Link
+Use this for Admin access
+```
+email : hello@gmail.com
+password asdfghjk
+```
+
 ## Tech Stack
 - **Framework:** Next.js 16.2.2
 - **Language:** TypeScript 5
