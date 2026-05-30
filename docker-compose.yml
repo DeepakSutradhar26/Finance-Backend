@@ -1,0 +1,29 @@
+version: "3.8"
+
+services:
+  db:
+    image: postgres:16
+    container_name: finance-db
+    restart: always
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: finance
+    posrts:
+      - "5432:5432"
+    volumes:
+      - "data_db:/var/lib/postgressql/data"
+
+  app:
+    build: .
+    container_name: finance-backend
+    ports:
+      - "3000:3000"
+    depends_on:
+      - db
+    environment:
+      - DATABASE_URL: postgresql://user:password@db:5432/finance
+      - JWT_SECRET: My-scret-got-leaked
+
+volumes:
+  db_data:
